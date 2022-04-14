@@ -35,6 +35,9 @@ public class Term {
     }
     
     public String printPolynomial(ArrayList<Term> list){
-        
+        String str = "";
+        for(Term e: list)
+            str += e + ", ";
+        return str;
     }
 }
