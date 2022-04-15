@@ -1,30 +1,33 @@
 package Project;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class TextAnalyser {
     
-    public static final String wordEndings = " ,;:.?/!";
+    public static final String sentenceEndings = ".?!";
     
     public static void main(String [] args){
         Scanner sc = new Scanner(System.in);
+        DecimalFormat df = new DecimalFormat("#.###");
         
         System.out.println("Enter a paragraph you would like to have analysed");
         String paragrapgh = sc.nextLine();
-        System.out.println(numChars(paragrapgh));
-        System.out.println(numWords(paragrapgh));
-        System.out.println(avgWords(paragrapgh));
-        System.out.println(avgWordLength(paragrapgh));
+        System.out.println("This paragraph has " + numChars(paragrapgh) + " characters");
+        System.out.println("This paragraph has " + numWords(paragrapgh) + " words");
+        System.out.println("This paragraph has an average of "  + df.format(avgWords(paragrapgh)) + " words per sentence");
+        System.out.println("This paragraph has an average of " + df.format(avgWordLength(paragrapgh)) + " letter per word");
         
     }
     
     //returns total number of characters excluding whitespace
+    //TODO: currently returns number of letters, change to everything but whitespace?
     public static int numChars(String str){
         int chars = 0;
         for(int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) != ' ')
+            if (Character.isLetter(str.charAt(i)))
                 chars++;
         }
         return chars;
@@ -42,18 +45,20 @@ public class TextAnalyser {
     
     //returns the average number of words per sentence in the paragraph
     public static double avgWords(String str){
-        int words = 0;
+        double words = 1, sentences = 0;
         
         for(int i = 0; i < str.length(); i++){
-            if(wordEndings.indexOf(str.charAt(i)) != -1){
-            
+            if(str.charAt(i) == ' '){
+                words++;
             }
+            if(sentenceEndings.indexOf(str.charAt(i)) !=  -1)
+                sentences++;
         }
-        return 0;
+        return words / sentences;
     }
     
     //returns the average word length in the paragraph
     public static double avgWordLength(String str){
-        return 0;
+        return (double)numChars(str) / numWords(str);
     }
 }
