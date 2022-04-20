@@ -33,11 +33,4 @@ public class Term {
             str = coefficient + "x^" + exponet;
         return str;
     }
-    
-    public String printPolynomial(ArrayList<Term> list){
-        String str = "";
-        for(Term e: list)
-            str += e + ", ";
-        return str;
-    }
 }

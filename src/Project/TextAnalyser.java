@@ -1,8 +1,6 @@
 package Project;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class TextAnalyser {
@@ -23,11 +21,10 @@ public class TextAnalyser {
     }
     
     //returns total number of characters excluding whitespace
-    //TODO: currently returns number of letters, change to everything but whitespace?
     public static int numChars(String str){
         int chars = 0;
         for(int i = 0; i < str.length(); i++) {
-            if (Character.isLetter(str.charAt(i)))
+            if (str.charAt(i) != ' ')
                 chars++;
         }
         return chars;
