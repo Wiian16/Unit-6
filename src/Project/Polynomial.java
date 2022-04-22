@@ -57,8 +57,8 @@ public class Polynomial {
                 }
             
                 //turning strings into ints
-                coefficient = Integer.valueOf(coef);
-                exponent = Integer.valueOf(exp);
+                coefficient = Integer.parseInt(coef);
+                exponent = Integer.parseInt(exp);
             
                 //adding term to arrayList
                 poly.add(new Term(coefficient, exponent));
@@ -66,8 +66,8 @@ public class Polynomial {
         }
     }
     
-    //Todo: Method to sort terms into descending order
     public static void sortPolynomials(ArrayList<Term> poly){
+        //standard bubble sort(sorts in ascending order)
         boolean sorted;
         for(int i = 0; i < poly.size() - 1; i++){
             sorted = true;
@@ -82,6 +82,7 @@ public class Polynomial {
             if(sorted)
                 break;
         }
+        //reversing the array to have it in descending order
         ArrayList<Term> temp = new ArrayList<>();
         for(int i = poly.size() - 1; i >= 0; i--)
             temp.add(poly.get(i));
