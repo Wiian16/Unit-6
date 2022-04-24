@@ -2,6 +2,7 @@ package Project;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Polynomial {
     private static Scanner sc = new Scanner(System.in);
@@ -10,13 +11,17 @@ public class Polynomial {
         ArrayList<Term> poly1 = new ArrayList<>();
         ArrayList<Term> poly2 = new ArrayList<>();
         fillPolynomials(poly1, poly2);
-        sortPolynomials(poly1);
-        sortPolynomials(poly2);
+        combineLikeTerms(poly1);
+        combineLikeTerms(poly2);
         System.out.println(printPolynomial(poly1));
         System.out.println(printPolynomial(poly2));
     }
     
-    //fill polynomials with user data
+    /**
+     * Redirects to {@link #fillPolynomial(ArrayList)} for each {@link ArrayList}
+     * @param poly1 {@link ArrayList} of type {@link Term}
+     * @param poly2 {@link ArrayList} of type {@link Term}
+     */
     public static void fillPolynomials(ArrayList<Term> poly1, ArrayList<Term> poly2){
         System.out.println("Enter the coefficient and the exponent for each term of you polynomial separated by a space");
         System.out.println("Enter your first polynomial, enter 0 0 when finished");
@@ -27,6 +32,10 @@ public class Polynomial {
         System.out.println(poly2);
     }
     
+    /**
+     * Fills {@link ArrayList} of type {@link Term} with user-specified data
+     * @param poly {@link ArrayList} of type {@link Term}
+     */
     public static void fillPolynomial(ArrayList<Term> poly){
         String input = "";
         int index = 0;
@@ -39,7 +48,7 @@ public class Polynomial {
             if(!input.equals("0 0")){
                 //taking coefficient out of input string
                 for(int i = 0; i < input.length(); i++){
-                    if(Character.isDigit(input.charAt(i)))
+                    if(Character.isDigit(input.charAt(i)) || input.charAt(i) == '-')
                         coef += input.charAt(i);
                     else if(input.charAt(i) == ' ') {
                         index = i + 1;
@@ -66,6 +75,10 @@ public class Polynomial {
         }
     }
     
+    /**
+     * Sorts an {@code ArrayList} of {@linkplain Term} into descending order
+     * @param poly ArrayList of {@code Term}
+     */
     public static void sortPolynomials(ArrayList<Term> poly){
         //standard bubble sort(sorts in ascending order)
         boolean sorted;
@@ -94,7 +107,24 @@ public class Polynomial {
     
     //Todo: method to create product of two polynomials, return new arraylist
     
-    //Todo: method to combine any like terms
+    /**
+     * Combines any like terms in
+     * @param list {@link ArrayList} of type {@link Term}
+     */
+    public static void combineLikeTerms(ArrayList<Term> list){
+        //find terms that may not have been combined
+        for(int i = 0; i < list.size() - 1; i ++){
+            int exp = list.get(i).getExponet();
+            //finding terms that match the first term to combine
+            for(int j = i + 1; j < list.size(); j++){
+                if(list.get(j).getExponet() == exp) {
+                    list.get(i).setCoefficient(list.get(i).getCoefficient() + list.get(j).getCoefficient());
+                    list.remove(j);
+                }
+            }
+        }
+        sortPolynomials(list);
+    }
     
     //Todo: toString method for polynomials(possibly static)
     public static String printPolynomial(ArrayList<Term> list){
