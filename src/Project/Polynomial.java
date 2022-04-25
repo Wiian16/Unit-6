@@ -76,7 +76,7 @@ public class Polynomial {
     
     /**
      * Sorts an {@code ArrayList} of {@link Term} into descending order
-     * @param poly ArrayList of {@code Term}
+     * @param poly {@link ArrayList} of {@link Term}
      */
     public static void sortPolynomials(ArrayList<Term> poly){
         //standard bubble sort(sorts in ascending order)
