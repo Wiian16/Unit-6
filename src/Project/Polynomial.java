@@ -2,7 +2,6 @@ package Project;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Polynomial {
     private static Scanner sc = new Scanner(System.in);
@@ -76,7 +75,7 @@ public class Polynomial {
     }
     
     /**
-     * Sorts an {@code ArrayList} of {@linkplain Term} into descending order
+     * Sorts an {@code ArrayList} of {@link Term} into descending order
      * @param poly ArrayList of {@code Term}
      */
     public static void sortPolynomials(ArrayList<Term> poly){
@@ -103,30 +102,45 @@ public class Polynomial {
         poly.addAll(temp);
     }
     
-    //Todo: method create the sum of two polynomials, return new arraylist
+    /**
+     * Adds contents of {@code poly1} and {@code poly2} to {@code sum} and calls {@link #combineLikeTerms}
+     * @param poly1 {@link ArrayList} of type {@link Term}
+     * @param poly2 {@link ArrayList} of type {@link Term}
+     * @return {@link ArrayList} {@code sum} of type {@link Term}
+     */
+    public static ArrayList<Term> addPolynomials(ArrayList<Term> poly1, ArrayList<Term> poly2){
+        ArrayList<Term> sum = (ArrayList<Term>)poly1.clone();
+        sum.addAll(poly2);
+        combineLikeTerms(sum);
+        return(sum);
+    }
     
-    //Todo: method to create product of two polynomials, return new arraylist
+    //TODO: Multiply polynomials
     
     /**
-     * Combines any like terms in
-     * @param list {@link ArrayList} of type {@link Term}
+     * Combines any like terms in given {@link ArrayList} of type {@link Term}
+     * @param poly {@link ArrayList} of type {@link Term}
      */
-    public static void combineLikeTerms(ArrayList<Term> list){
+    public static void combineLikeTerms(ArrayList<Term> poly){
         //find terms that may not have been combined
-        for(int i = 0; i < list.size() - 1; i ++){
-            int exp = list.get(i).getExponet();
+        for(int i = 0; i < poly.size() - 1; i ++){
+            int exp = poly.get(i).getExponet();
             //finding terms that match the first term to combine
-            for(int j = i + 1; j < list.size(); j++){
-                if(list.get(j).getExponet() == exp) {
-                    list.get(i).setCoefficient(list.get(i).getCoefficient() + list.get(j).getCoefficient());
-                    list.remove(j);
+            for(int j = i + 1; j < poly.size(); j++){
+                if(poly.get(j).getExponet() == exp) {
+                    poly.get(i).setCoefficient(poly.get(i).getCoefficient() + poly.get(j).getCoefficient());
+                    poly.remove(j);
                 }
             }
         }
-        sortPolynomials(list);
+        sortPolynomials(poly);
     }
     
-    //Todo: toString method for polynomials(possibly static)
+    /**
+     *
+     * @param list {@link ArrayList} of type {@link Term}
+     * @return {@code String str} of a formatted polynomial
+     */
     public static String printPolynomial(ArrayList<Term> list){
         String str = "";
         str += list.get(0);
