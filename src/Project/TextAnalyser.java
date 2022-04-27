@@ -51,6 +51,8 @@ public class TextAnalyser {
             if(sentenceEndings.indexOf(str.charAt(i)) !=  -1)
                 sentences++;
         }
+        if(sentences == 0)
+            sentences = 1;
         return words / sentences;
     }
     

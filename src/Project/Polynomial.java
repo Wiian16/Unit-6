@@ -10,10 +10,10 @@ public class Polynomial {
         ArrayList<Term> poly1 = new ArrayList<>();
         ArrayList<Term> poly2 = new ArrayList<>();
         fillPolynomials(poly1, poly2);
-        combineLikeTerms(poly1);
-        combineLikeTerms(poly2);
-        System.out.println(printPolynomial(poly1));
-        System.out.println(printPolynomial(poly2));
+        System.out.println("Here are you polynomials added:");
+        System.out.println(printPolynomial(addPolynomials(poly1, poly2)));
+        System.out.println("Here are your polynomials multiplied");
+        System.out.println(printPolynomial(multiplyPolynomials(poly1, poly2)));
     }
     
     /**
@@ -72,6 +72,7 @@ public class Polynomial {
                 poly.add(new Term(coefficient, exponent));
             }
         }
+        combineLikeTerms(poly);
     }
     
     /**
@@ -81,13 +82,16 @@ public class Polynomial {
     public static void sortPolynomials(ArrayList<Term> poly){
         //standard bubble sort(sorts in ascending order)
         boolean sorted;
+        //outer loop counts passes through the array
         for(int i = 0; i < poly.size() - 1; i++){
             sorted = true;
+            //inner loop counts position in array
             for(int j = 0; j < poly.size() - 1 - i; j++){
-                if(poly.get(i).getExponet() > poly.get(i + 1).getExponet()){
-                    Term temp = poly.get(i);
-                    poly.set(i, poly.get(i + 1));
-                    poly.set(i + 1, temp);
+                //swap out of order variables
+                if(poly.get(j).getExponet() > poly.get(j + 1).getExponet()){
+                    Term temp = poly.get(j);
+                    poly.set(j, poly.get(j + 1));
+                    poly.set(j + 1, temp);
                     sorted = false;
                 }
             }
@@ -116,6 +120,19 @@ public class Polynomial {
     }
     
     //TODO: Multiply polynomials
+    public static ArrayList<Term> multiplyPolynomials(ArrayList<Term> poly1, ArrayList<Term> poly2){
+        ArrayList<Term> product = new ArrayList<>();
+        
+        for(int i = 0; i < poly1.size(); i++){
+            for(int j = 0; j < poly2.size(); j++){
+                int coef = poly1.get(i).getCoefficient() * poly2.get(j).getCoefficient();
+                int exp = poly1.get(i).getExponet() + poly2.get(j).getExponet();
+                product.add(new Term(coef, exp));
+            }
+        }
+        combineLikeTerms(product);
+        return product;
+    }
     
     /**
      * Combines any like terms in given {@link ArrayList} of type {@link Term}
