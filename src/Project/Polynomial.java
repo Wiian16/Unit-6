@@ -56,7 +56,7 @@ public class Polynomial {
                 }
                 //taking exponent out of input string
                 for(int i = index; i < input.length(); i ++){
-                    if(Character.isDigit(input.charAt(i)))
+                    if(Character.isDigit(input.charAt(i)) || input.charAt(i) == '-')
                         exp += input.charAt(i);
                     else if(input.charAt(i) == ' ') {
                         index = i;
@@ -119,7 +119,6 @@ public class Polynomial {
         return(sum);
     }
     
-    //TODO: Multiply polynomials
     public static ArrayList<Term> multiplyPolynomials(ArrayList<Term> poly1, ArrayList<Term> poly2){
         ArrayList<Term> product = new ArrayList<>();
         
